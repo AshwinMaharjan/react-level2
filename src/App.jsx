@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './Navbar'
-import { uuid} from "uuidv4"
 import ContactList from './ContactList'
 import Form from './Form'
 
@@ -14,11 +13,7 @@ function App() {
   })
 
   const formHandler = (contact) => {
-    setContact([...contacts, {id: uuid(), ...contacts}])
-  }
-  
-  const removeContactHandler = (id) =>{
-       
+    setContact((prev) => [...prev, contact])
   }
 
   // save to localStorage whenever contacts change
