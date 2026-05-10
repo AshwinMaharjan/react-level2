@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function Form() {
+function Form(props) {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    address: ""
+  })
+
+  const add = (e) => {
+    e.preventDefault()
+
+    if (
+      formData.name === "" ||
+      formData.email === "" ||
+      formData.address === ""
+    ) {
+      alert("All fields are mandatory")
+      return
+    }
+
+    props.formHandler(formData)
+    // this.setState({name: "", email: "", address: ""}) //class component
+
+    setFormData({
+      name: "",
+      email: "",
+      address: ""
+    })
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-100">
 
@@ -10,35 +39,62 @@ function Form() {
           Add Details
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={add}>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-zinc-700">Name</label>
+            <label className="mb-1 text-sm font-medium text-zinc-700">
+              Name
+            </label>
+
             <input
               type="text"
-              name="name"
               placeholder="Enter your name"
               className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  name: e.target.value
+                })
+              }
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-zinc-700">Contact Number</label>
+            <label className="mb-1 text-sm font-medium text-zinc-700">
+              Email
+            </label>
+
             <input
-              type="text"
-              name="contact"
-              placeholder="Enter contact number"
+              type="email"
+              placeholder="Enter email"
               className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  email: e.target.value
+                })
+              }
             />
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-zinc-700">Address</label>
+            <label className="mb-1 text-sm font-medium text-zinc-700">
+              Address
+            </label>
+
             <input
               type="text"
-              name="address"
               placeholder="Enter address"
               className="border border-zinc-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.address}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  address: e.target.value
+                })
+              }
             />
           </div>
 
